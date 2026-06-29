@@ -218,14 +218,14 @@ New-ADUser `
 
 ---
 
-Entry 010 — First Vulnerability Scan with Nessus Essentials
+## Entry 010 — First Vulnerability Scan with Nessus Essentials
 
-Date: June 27, 2026
-Status: ✅ Complete
+**Date:** June 27, 2026
+**Status:** ✅ Complete
 
-Action: Installed Nessus Essentials on the Windows 11 Pro VM and ran a vulnerability scan against the homelab.local network subnet. OpenVAS installation also in progress for comparison between the two scanners.
+**Action:** Installed Nessus Essentials on the Windows 11 Pro VM and ran a vulnerability scan against the homelab.local network subnet. OpenVAS installation also in progress for comparison between the two scanners.
 
-Steps executed:
+**Steps executed:**
 
 Installed Nessus Essentials on the Windows 11 Pro VM
 Configured a basic network scan targeting the VirtualBox host-only subnet
@@ -238,11 +238,11 @@ Self-signed X.509 certificate — a certificate presented by a service running o
 CVSS 3.0 Base Score: 6.5 (Medium)
 Recommended remediation per Nessus: purchase or generate a proper SSL certificate from a trusted CA
 
-Analysis: This finding relates to the scanning service itself rather than a deeper system compromise — but it's a textbook example of why self-signed certificates are flagged in vulnerability assessments. A self-signed cert means there's no trusted third party vouching for the identity of the service presenting it, which opens the door to man-in-the-middle attacks where a malicious actor could present their own self-signed cert and a client would have no reliable way to detect the substitution.
+**Analysis:** This finding relates to the scanning service itself rather than a deeper system compromise — but it's a textbook example of why self-signed certificates are flagged in vulnerability assessments. A self-signed cert means there's no trusted third party vouching for the identity of the service presenting it, which opens the door to man-in-the-middle attacks where a malicious actor could present their own self-signed cert and a client would have no reliable way to detect the substitution.
 
-Outcome: First successful vulnerability scan completed and documented. Confirmed ability to install, configure, and interpret results from an industry-standard vulnerability scanner. CVSS scoring and remediation guidance reviewed and understood in the context of a real (if minor) finding rather than a hypothetical one.
+**Outcome:** First successful vulnerability scan completed and documented. Confirmed ability to install, configure, and interpret results from an industry-standard vulnerability scanner. CVSS scoring and remediation guidance reviewed and understood in the context of a real (if minor) finding rather than a hypothetical one.
 
-Lesson learned: A "clean-looking" scan with only one low-to-medium finding is still a valuable exercise — vulnerability management isn't only about finding critical flaws, it's about being able to read, score, and contextualize every finding a scanner returns, including ones related to the scanner's own service. Next step is to power on the full VM network (DC01, Kali, Windows 11) during a scan to get a complete picture of the lab's exposed surface, and to run a parallel scan with OpenVAS once installation is complete for comparison between the two platforms.
+**Lesson learned:** A "clean-looking" scan with only one low-to-medium finding is still a valuable exercise — vulnerability management isn't only about finding critical flaws, it's about being able to read, score, and contextualize every finding a scanner returns, including ones related to the scanner's own service. Next step is to power on the full VM network (DC01, Kali, Windows 11) during a scan to get a complete picture of the lab's exposed surface, and to run a parallel scan with OpenVAS once installation is complete for comparison between the two platforms.
 
 ---
 *Log continues as the lab grows. Every new configuration, exercise, troubleshooting event, and rebuild is documented here.*
