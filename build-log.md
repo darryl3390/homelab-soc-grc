@@ -227,22 +227,30 @@ New-ADUser `
 
 **Steps executed:**
 
-Installed Nessus Essentials on the Windows 11 Pro VM
-Configured a basic network scan targeting the VirtualBox host-only subnet
-Ran the scan and reviewed results in the Nessus dashboard
-Findings:
+- Installed Nessus Essentials on the Windows 11 Pro VM
+- Configured a basic network scan targeting the VirtualBox host-only subnet
+- Ran the scan and reviewed results in the Nessus dashboard
 
-Windows 11 Pro was the only host that returned as active on the scanned network — other VMs (DC01, Kali) were not powered on at the time of the scan
-One vulnerability identified on the Windows 11 Pro VM:
-Self-signed X.509 certificate — a certificate presented by a service running on the Windows 11 VM (the Nessus web interface itself) cannot be trusted because it is self-signed rather than issued by a recognized Certificate Authority
-CVSS 3.0 Base Score: 6.5 (Medium)
-Recommended remediation per Nessus: purchase or generate a proper SSL certificate from a trusted CA
+**Findings:**
 
-**Analysis:** This finding relates to the scanning service itself rather than a deeper system compromise — but it's a textbook example of why self-signed certificates are flagged in vulnerability assessments. A self-signed cert means there's no trusted third party vouching for the identity of the service presenting it, which opens the door to man-in-the-middle attacks where a malicious actor could present their own self-signed cert and a client would have no reliable way to detect the substitution.
+- Windows 11 Pro was the only host that returned as active on the scanned network — other VMs (DC01, Kali) were not powered on at the time of the scan
+- One vulnerability identified on the Windows 11 Pro VM:
+  - **Self-signed X.509 certificate** — a certificate presented by the Nessus web interface running on the Windows 11 VM cannot be trusted because it is self-signed rather than issued by a recognized Certificate Authority
+  - **CVSS 3.0 Base Score:** 6.5 (Medium)
+  - **Recommended remediation per Nessus:** purchase or generate a proper SSL certificate from a trusted CA
 
-**Outcome:** First successful vulnerability scan completed and documented. Confirmed ability to install, configure, and interpret results from an industry-standard vulnerability scanner. CVSS scoring and remediation guidance reviewed and understood in the context of a real (if minor) finding rather than a hypothetical one.
+**Verified:**
 
-**Lesson learned:** A "clean-looking" scan with only one low-to-medium finding is still a valuable exercise — vulnerability management isn't only about finding critical flaws, it's about being able to read, score, and contextualize every finding a scanner returns, including ones related to the scanner's own service. Next step is to power on the full VM network (DC01, Kali, Windows 11) during a scan to get a complete picture of the lab's exposed surface, and to run a parallel scan with OpenVAS once installation is complete for comparison between the two platforms.
+- Reviewed finding detail and CVSS breakdown in Nessus dashboard
+- Confirmed the flagged service was the Nessus web interface itself, not a separate exposed service
+
+**Outcome:** First successful vulnerability scan completed and documented. Confirmed ability to install, configure, and interpret results from an industry-standard vulnerability scanner. CVSS scoring and remediation guidance reviewed and understood in the context of a real, if minor, finding.
+
+**Lesson learned:** A "clean-looking" scan with only one low-to-medium finding is still a valuable exercise — vulnerability management isn't only about finding critical flaws, it's about being able to read, score, and contextualize every finding a scanner returns, including ones related to the scanner's own service. Self-signed certificates are flagged because there's no trusted third party vouching for the identity of the service presenting them, which opens the door to man-in-the-middle attacks.
+
+**Real-world relevance:** Production environments avoid this exact finding by issuing certificates through an internal or public Certificate Authority rather than relying on self-signed certs for anything beyond local testing. Next step is to power on the full VM network (DC01, Kali, Windows 11) during a scan to get a complete picture of the lab's exposed surface, and to run a parallel scan with OpenVAS once installation is complete for comparison between the two platforms.
 
 ---
+
+
 *Log continues as the lab grows. Every new configuration, exercise, troubleshooting event, and rebuild is documented here.*
