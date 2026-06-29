@@ -252,5 +252,27 @@ New-ADUser `
 
 ---
 
+## Entry 011 — Added Secondary NAT Adapter for Internet Access
 
+**Date:** June 28, 2026
+**Status:** ✅ Complete
+
+**Action:** Added a second network adapter (Adapter 2) configured for NAT on Kali Linux, Windows Server 2025, and Windows 11 Pro — giving each VM outbound internet access while preserving the existing Host-Only adapter (Adapter 1) for isolated inter-VM communication.
+
+**Steps executed:**
+
+- Opened VM Settings → Network in VirtualBox for each VM
+- Enabled Adapter 2 and set it to NAT
+- Left Adapter 1 (Host-Only) untouched, maintaining the existing isolated homelab.local network
+- Repeated for Kali Linux, Windows Server 2025, and Windows 11 Pro
+
+**Use case:** Downloading OS and tool updates, and installing additional software (Nessus, OpenVAS, future tools) directly within each VM without needing to transfer files manually or temporarily reconfigure the primary network adapter.
+
+**Outcome:** All three VMs now have dual network adapters — Adapter 1 (Host-Only) for isolated lab traffic and domain communication, Adapter 2 (NAT) for outbound internet access. Setup completed via the VirtualBox GUI with no issues. Internet access confirmed working alongside continued connectivity on the isolated homelab.local network.
+
+**Lesson learned:** Running a dual-adapter configuration is a common pattern in real lab and test environments — it allows a system to stay isolated from production or sensitive networks on one interface while still being reachable or update-capable on another. Adapter 1 remaining Host-Only means the lab's internal isolation is unaffected by adding outbound internet access; the two networks don't bridge or route into each other through VirtualBox's NAT implementation.
+
+**Real-world relevance:** This mirrors how enterprise environments often segment management or update traffic onto a separate interface or VLAN from production/internal traffic — keeping the sensitive network isolated while still allowing controlled access for patching and tool installation.
+
+---
 *Log continues as the lab grows. Every new configuration, exercise, troubleshooting event, and rebuild is documented here.*
